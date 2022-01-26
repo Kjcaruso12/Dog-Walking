@@ -34,11 +34,11 @@ export const Walkers = () => {
     return walkerHTML
 }
 
-const matchWalkers = (walker) => {
-    const matchingCities = []
-    for (const assignment of walkerCities) {
-        if (assignment.walkerId === walker.id) {
-            matchingCities.push(assignment)
+const matchWalkers = (walkerObj) => {
+    let matchingCities = []
+    for (const city of walkerCities) {
+        if (city.walkerId === walkerObj.id) {
+            matchingCities.push(city)
         }
     }
     return matchingCities
@@ -46,10 +46,15 @@ const matchWalkers = (walker) => {
 
 const matchCities = (matchingCities) => {
     let cityNames = ""
-    for (const assignment of matchingCities) {
+    for (const cityMatch of matchingCities) {
         for (const city of cities) {
-            if (city.id === assignment.cityId) {
-                cityNames = `${cityNames} and ${city.name}`
+            if (city.id === cityMatch.cityId) {
+                if (cityNames === "") {
+                    cityNames += `${city.name}`
+                }
+                else {
+                    cityNames = `${cityNames} and ${city.name}`
+                }
             }
         }
     }
